@@ -28,7 +28,7 @@ def identify_column_categories(df, prompt_template):
         prompt += f"\nColumn: {col}\n"
         prompt += "Values:\n" + ", ".join(df[col].head(num_rows).astype(str).tolist()) + "\n"
 
-    prompt += "\nFor each column, provide the column name and the category it falls into."
+    prompt += "\nFor each column, provide the column name and the category it falls into in a bullet format with column_name: column_category"
 
     response = openai.ChatCompletion.create(
         model="gpt-4",
@@ -57,7 +57,7 @@ if uploaded_file is not None:
     I have a dataset with the following columns and some rows of values. 
     Please categorize each column into different categories
 
-    Dataset:
+    Here is the dataset with some sample rows of values:
     """
 
     prompt_template_2 = """
@@ -69,28 +69,26 @@ if uploaded_file is not None:
     - Phone number
     - Geographical Data (e.g., address, city, country)
     - Date/Time
-    - Categorical/Type (e.g., labels or codes representing categories)
+    - Categorical (e.g., labels or codes representing categories)
     - Person/Name
-    - Department
+    - Department/Division
     - Brand
-    - Organisation
-    - Product/Service Category
-    - Product/Service Description
+    - Organization/Company
+    - Product/Service
+    - Product/Service Details
     - Items (e.g., product lists, inventory)
     - Boolean (e.g., true/false, yes/no)
     - URLs
     - IP Address
-    - Gender
+    - Gender/Identity
     - Numerical
     - Latitude/Longitude
-    - Zipcode
-    - Quantity/Counts (like number_of_items, number_of_visits etc)
+    - Postal Code/Zipcode
+    - Count/Quantity (like number_of_items, number_of_visits etc)
     - Amount (such as total_cost, price, transaction_amount, salary, annual_income etc)
     - Age/Years (years_experience etc)
     - Measurements (like height, weight, temperature etc)
-
-    Please analyze the values in each text-based column and categorize them into the most appropriate category from the list. Ensure the category matches the patterns and nature of the data in each column.
-
+    
     Here is the dataset with some sample rows of values:
     """
 
@@ -98,11 +96,11 @@ if uploaded_file is not None:
     col1, col2 = st.columns(2)
 
     with col1:
-        st.write("### Prompt 1 - Categories")
+        st.write("### Approach 1 - Allows the model to freely determine the categories")
         categories_1 = identify_column_categories(df, prompt_template_1)
         st.markdown(f"<div class='wrap-text'>{categories_1}</div>", unsafe_allow_html=True)
 
     with col2:
-        st.write("### Prompt 2 - Categories")
+        st.write("### Approach 2 - Provides the model a fixed list of predefined categories to choose from")
         categories_2 = identify_column_categories(df, prompt_template_2)
         st.markdown(f"<div class='wrap-text'>{categories_2}</div>", unsafe_allow_html=True)
