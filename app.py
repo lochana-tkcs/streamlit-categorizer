@@ -95,7 +95,7 @@ if uploaded_file is not None:
     # Process the dataframe through two prompts
     col1, col2 = st.columns(2)
 
-        with col1:
+    with col1:
         st.write("### Open-Ended Approach")
         categories_1 = identify_column_categories(df, prompt_template_1)
         st.markdown(f"<div class='wrap-text'>{categories_1}</div>", unsafe_allow_html=True)
