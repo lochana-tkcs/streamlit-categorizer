@@ -3,7 +3,7 @@ import openai
 import pandas as pd
 
 # Set your OpenAI API key
-openai.api_key = st.secrets["openai_api_key"]
+openai.api_key = "sk-RFaIBKAoluVwK0GzBKLGL8ITWZjCgQS_0YdB0v0CdpT3BlbkFJOkPsTB2K_HW5OqCs0ciJKARnJ-ZEGNj7UtxcW37VwA"
 
 # Inject custom CSS to handle overflow content
 st.markdown(
