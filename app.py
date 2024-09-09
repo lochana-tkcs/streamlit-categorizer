@@ -95,12 +95,12 @@ if uploaded_file is not None:
     # Process the dataframe through two prompts
     col1, col2 = st.columns(2)
 
-    with col1:
-        st.write("### Approach 1 - Allows the model to freely determine the categories")
+        with col1:
+        st.write("### Open-Ended Approach")
         categories_1 = identify_column_categories(df, prompt_template_1)
         st.markdown(f"<div class='wrap-text'>{categories_1}</div>", unsafe_allow_html=True)
 
     with col2:
-        st.write("### Approach 2 - Provides the model a fixed list of predefined categories to choose from")
+        st.write("### Bucketed Category Approach")
         categories_2 = identify_column_categories(df, prompt_template_2)
         st.markdown(f"<div class='wrap-text'>{categories_2}</div>", unsafe_allow_html=True)
